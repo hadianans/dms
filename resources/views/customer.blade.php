@@ -56,7 +56,7 @@
                     <td>-</td>
                     <td>{{ $customer->address }}</td>
                     <td>
-                        <a href="#" class="btn btn-danger"><span class="icon-trash"></span></a>
+                        <!-- <a href="#" class="btn btn-danger"><span class="icon-trash"></span></a> -->
                         <button class="btn btn-warning detail" data-toggle="modal" data-target="#UpdateModal" data-id="{{$customer->id}}" data-name="{{$customer->name}}" data-email="{{$customer->email}}" data-phone="{{$customer->phone}}" data-address="{{$customer->address}}"><span class="icon-pencil"></span></button>
                     </td>
                 </tr>
@@ -101,7 +101,7 @@
             <div class="form-group row">
                 <label for="inputAdress" class="col-sm-2 col-form-label">Adress</label>
                 <div class="col">
-                    <input type="text" name="address" class="form-control" id="inputAdress" placeholder="alamat lengkap" required>
+                    <input type="text" name="address" class="form-control" id="inputAddress" placeholder="alamat lengkap" required>
                 </div>
             </div>
             <div class="form-group row mt-4">
@@ -152,7 +152,7 @@
             <div class="form-group row">
                 <label for="inputAdress" class="col-sm-2 col-form-label">Adress</label>
                 <div class="col">
-                    <input type="text" name="address" class="form-control" id="updateAdress" placeholder="alamat lengkap" required>
+                    <input type="text" name="address" class="form-control" id="updateAddress" placeholder="alamat lengkap" required>
                 </div>
             </div>
             <div class="form-group row mt-4">

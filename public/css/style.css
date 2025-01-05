@@ -274,3 +274,10 @@ main {
     max-width: 90%;
     margin: auto;
 }}
+
+
+/* per padding an */
+
+.px-75{
+  padding: 0 7.5px 0 7.5px !important;
+}

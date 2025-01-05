@@ -77,16 +77,17 @@
                     <td>{{ $order->sock->name }}</td>
                     <td>{{ $order->color->name }}</td>
                     <td>{{ $order->size }}</td>
-                    <td>{{ $order->amount }}</td>
-                    <td>{{ $order->deadline }}</td>
-                    <td>40/50 (80%)</td>
-                    <td>25/50 (50%)</td>
+                    <td class="amount">{{ $order->amount }}</td>
+                    <td>{{ \Carbon\Carbon::parse($order->deadline)->translatedFormat('d M Y') }}</td>
+                    <td>-</td>
+                    <td>-</td>
                     <td>{{ $order->note }}</td>
                     <td>
                         <a href="#" class="btn btn-danger" onclick="deleteData(id = '{{$order->id}}', url = 'order')"><span class="icon-trash"></span></a>
-                        <button class="btn btn-warning" data-toggle="modal" data-target="#UpdateModal"><span class="icon-pencil"></span></button>
-                        <a href="#" class="btn btn-success"><span class="icon-check-square"></span></a>
+                        <a href="#" class="btn btn-warning detail" data-toggle="modal" data-target="#UpdateModal" data-id="{{$order->id}}" data-customer="{{$order->customer->name}}" data-sock="{{$order->sock->name}}" data-color="{{$order->color->name}}" data-size="{{$order->size}}" data-amount="{{$order->amount}}" data-price="{{$order->price}}" data-deadline="{{$order->deadline}}" data-note="{{$order->note}}"><span class="icon-pencil"></span></a>
+                        <a href="#" class="btn btn-success" onclick="doneOrder(id = '{{$order->id}}')"><span class="icon-check-square"></span></a>
                     </td>
+                    <!-- href="{{ route('order.edit', $order->id) }}" -->
                 </tr>
                 @endforeach
             </tbody>
@@ -111,7 +112,7 @@
             <div class="form-group row">
                 <label for="inputCustomer" class="col-sm-2 col-form-label">Customer</label>
                 <div class="col">
-                    <input class="form-control" list="customerOptions" id="inputCustomer" onchange="resetIfInvalid(this);" required placeholder="Type to search...">
+                    <input class="form-control" name="customer" list="customerOptions" id="inputCustomer" onchange="resetIfInvalid(this);" required placeholder="Type to search...">
                     <datalist id="customerOptions">
                         @foreach($customers as $customer)
                             <option data-value="{{ $customer->id }}">{{ $customer->name }}</option>
@@ -122,7 +123,7 @@
             <div class="form-group row">
                 <label for="inputSock" class="col-sm-2 col-form-label">Sock</label>
                 <div class="col">
-                    <input class="form-control" list="sockOptions" id="inputSock" onchange="resetIfInvalid(this);" required placeholder="Type to search...">
+                    <input class="form-control" name="sock" list="sockOptions" id="inputSock" onchange="resetIfInvalid(this);" required placeholder="Type to search...">
                     <datalist id="sockOptions">
                         @foreach($socks as $sock)
                             <option data-value="{{ $sock->id }}">{{ $sock->name }}</option>
@@ -133,7 +134,7 @@
             <div class="form-group row">
                 <label for="inputColor" class="col-sm-2 col-form-label">Color</label>
                 <div class="col">
-                    <input class="form-control" list="colorOptions" id="inputColor" onchange="resetIfInvalid(this);" required placeholder="Type to search...">
+                    <input class="form-control" name="color" list="colorOptions" id="inputColor" onchange="resetIfInvalid(this);" required placeholder="Type to search...">
                     <datalist id="colorOptions">
                         @foreach($colors as $color)
                             <option data-value="{{ $color->id }}">{{ $color->name }}</option>
@@ -142,31 +143,35 @@
                 </div>
             </div>
             <div class="form-group row">
-                <div class="col-md-3">
+                <div class="col-md-2 px-75">
                     <label for="inputSize" class="col-sm-2 col-form-label">Size</label>
-                    <input type="number" class="form-control" id="inputSize" placeholder="Size">
+                    <input type="number" name="size" class="form-control" id="inputSize" placeholder="Size" required>
                 </div>
-                <div class="col-md-3">
-                    <label for="inputTotal" class="col-sm-2 col-form-label">Total</label>
-                    <input type="number" class="form-control" id="inputTotal" placeholder="Total">
+                <div class="col-md-2 px-75">
+                    <label for="inputAmount" class="col-sm-2 col-form-label">Total</label>
+                    <input type="number" name="amount" class="form-control" id="inputAmount" placeholder="Total" required>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 px-75">
                     <label for="inputType" class="col-sm-2 col-form-label">Type</label>
-                    <select id="inputType" class="form-control" required>
+                    <select name="type" id="inputType" class="form-control" required>
                         <option selected value="">...</option>
                         <option value="0">Dz</option>
                         <option value="1">Ps</option>
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3 px-75">
+                    <label for="inputPrice" class="col-sm-2 col-form-label">Price</label>
+                    <input type="number" name="price" class="form-control" id="inputPrice" placeholder="Rp." required>
+                </div>
+                <div class="col-md-3 px-75">
                     <label for="inputDeadline" class="col-sm-2 col-form-label">Deadline</label>
-                    <input type="date" class="form-control" id="inputDeadline">
+                    <input type="date" name="deadline" class="form-control" id="inputDeadline" required>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col">
                     <label for="inputNote" class="col-sm-2 col-form-label">Note</label>
-                    <textarea class="form-control" id="inputNote" rows="3"></textarea>
+                    <textarea class="form-control" name="note" id="inputNote" rows="3" required></textarea>
                 </div>
             </div>
             <div class="form-group row">
@@ -195,10 +200,11 @@
         <form action="{{ route('order.update', 1) }}" method="POST" class="m-3">
             {{ csrf_field() }}
             @method('PUT')
+            <input name="id" class="border-0 w-100" type="hidden" id="edit-id" value="">
             <div class="form-group row">
                 <label for="updateCustomer" class="col-sm-2 col-form-label">Customer</label>
                 <div class="col">
-                    <input class="form-control" list="customerOptions" id="updateCustomer" onchange="resetIfInvalid(this);" required placeholder="Type to search...">
+                    <input class="form-control" name="customer" list="customerOptions" id="updateCustomer" onchange="resetIfInvalid(this);" required placeholder="Type to search...">
                     <datalist id="customerOptions">
                         @foreach($customers as $customer)
                             <option data-value="{{ $customer->id }}">{{ $customer->name }}</option>
@@ -209,7 +215,7 @@
             <div class="form-group row">
                 <label for="updateSock" class="col-sm-2 col-form-label">Sock</label>
                 <div class="col">
-                    <input class="form-control" list="sockOptions" id="updateSock" onchange="resetIfInvalid(this);" required placeholder="Type to search...">
+                    <input class="form-control" name="sock" list="sockOptions" id="updateSock" onchange="resetIfInvalid(this);" required placeholder="Type to search...">
                     <datalist id="sockOptions">
                         @foreach($socks as $sock)
                             <option data-value="{{ $sock->id }}">{{ $sock->name }}</option>
@@ -220,7 +226,7 @@
             <div class="form-group row">
                 <label for="updateColor" class="col-sm-2 col-form-label">Color</label>
                 <div class="col">
-                    <input class="form-control" list="colorOptions" id="updateColor" onchange="resetIfInvalid(this);" required placeholder="Type to search...">
+                    <input class="form-control" name="color" list="colorOptions" id="updateColor" onchange="resetIfInvalid(this);" required placeholder="Type to search...">
                     <datalist id="colorOptions">
                         @foreach($colors as $color)
                             <option data-value="{{ $color->id }}">{{ $color->name }}</option>
@@ -229,31 +235,35 @@
                 </div>
             </div>
             <div class="form-group row">
-                <div class="col-md-3">
+                <div class="col-md-2 px-75">
                     <label for="updateSize" class="col-sm-2 col-form-label">Size</label>
-                    <input type="number" class="form-control" id="updateSize" placeholder="Size">
+                    <input type="number" name="size" class="form-control" id="updateSize" placeholder="Size" required>
                 </div>
-                <div class="col-md-3">
-                    <label for="updateTotal" class="col-sm-2 col-form-label">Total</label>
-                    <input type="number" class="form-control" id="updateTotal" placeholder="Total">
+                <div class="col-md-2 px-75">
+                    <label for="updateAmount" class="col-sm-2 col-form-label">Total</label>
+                    <input type="number" name="amount" class="form-control" id="updateAmount" placeholder="Total" required>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 px-75">
                     <label for="updateType" class="col-sm-2 col-form-label">Type</label>
-                    <select id="updateType" class="form-control" required>
+                    <select name="type" id="updateType" class="form-control" required>
                         <option selected value="">...</option>
                         <option value="0">Dz</option>
                         <option value="1">Ps</option>
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3 px-75">
+                    <label for="updatePrice" class="col-sm-2 col-form-label">Price</label>
+                    <input type="number" name="price" class="form-control" id="updatePrice" placeholder="Rp." required>
+                </div>
+                <div class="col-md-3 px-75">
                     <label for="updateDeadline" class="col-sm-2 col-form-label">Deadline</label>
-                    <input type="date" class="form-control" id="updateDeadline">
+                    <input type="date" name="deadline" class="form-control" id="updateDeadline" required>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col">
                     <label for="updateNote" class="col-sm-2 col-form-label">Note</label>
-                    <textarea class="form-control" id="updateNote" rows="3"></textarea>
+                    <textarea class="form-control" name="note" id="updateNote" rows="3" required></textarea>
                 </div>
             </div>
             <div class="form-group row">
@@ -267,6 +277,12 @@
   </div>
 </div>
 <!-- End Modal Update -->
+
+{{-- form order hidden --}}
+<form action="" method="GET" id="form-order">
+    <input type="hidden" name="_method" value="EDIT">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+</form>
 
 @push('styles')
 <link href="{{ asset('css/order.css') }}" rel="stylesheet">

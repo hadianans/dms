@@ -1,11 +1,17 @@
-$("#table").DataTable({
+$(document).ready( function () {
+  amountFormat();
+  
+  $("#table").DataTable({
     responsive: true,
+  });
+
+  $("#table-detail").DataTable({
+      responsive: true,
+    pageLength : 3,
+  });
 });
 
-$("#table-detail").DataTable({
-    responsive: true,
-	pageLength : 3,
-});
+
 
 $(function() {
 
@@ -52,8 +58,9 @@ title = str.substring(0, str.indexOf(' '));
 $("."+title).addClass('active');
 
 function deleteData(id, url){
-    const formDelete = document.querySelector('#form-delete');
 
+    const formDelete = document.querySelector('#form-delete');
+  
     Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -69,4 +76,26 @@ function deleteData(id, url){
             return;
         }
       });
+      
 };
+
+function amountFormat(){
+    
+  let amount;
+  const element = $(".amount");
+  
+  for(i=0; i<element.length; i++){
+  
+      let a = element[i].innerHTML / 12;
+      
+      if(Number.isInteger(a) == false){
+          let b = a - Math.floor(a);
+          let c = Math.round(b * 12);
+          amount = Math.floor(a) + " dz " + c + " ps";
+      }else{
+          amount = a + " dz";
+      }
+  
+      element[i].innerHTML = amount;
+  }
+}

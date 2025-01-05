@@ -29,7 +29,7 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $color->name }}</td>
                     <td>
-                        <a href="#" class="btn btn-danger" onclick="deleteData(id = '{{$color->id}}', url = 'color')"><span class="icon-trash"></span></a>
+                        <!-- <a href="#" class="btn btn-danger" onclick="deleteData(id = '{{$color->id}}', url = 'color')"><span class="icon-trash"></span></a> -->
                         <button class="btn btn-warning detail" data-toggle="modal" data-target="#UpdateModal" data-id="{{$color->id}}" data-color="{{$color->name}}" ><span class="icon-pencil"></span></button>
                     </td>
                 </tr>
