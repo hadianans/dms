@@ -41,7 +41,7 @@
                     <td>{{$sock->name}}</td>
                     <td>
                         <!-- <a href="#" class="btn btn-danger" onclick="deleteData(id = '{{$sock->id}}', url = 'sock')"><span class="icon-trash"></span></a> -->
-                        <button class="btn btn-warning detail" data-toggle="modal" data-target="#UpdateModal" data-id="{{$sock->id}}" data-sock="{{$sock->name}}" ><span class="icon-pencil"></span></button>
+                        <button class="btn btn-warning detail" data-toggle="modal" data-target="#UpdateModal" data-id="{{$sock->id}}" data-sock="{{$sock->name}}"><span class="icon-pencil"></span></button>
                     </td>
                 </tr>
                 @endforeach

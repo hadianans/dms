@@ -87,7 +87,7 @@
                     <td>{{ \Carbon\Carbon::parse($production->date)->translatedFormat('d M Y') }}</td>
                     <td>
                         <a href="#" class="btn btn-danger"><span class="icon-trash"></span></a>
-                        <button class="btn btn-warning" data-toggle="modal" data-target="#UpdateModal"><span class="icon-pencil"></span></button>
+                        <button class="btn btn-warning detail" data-toggle="modal" data-target="#UpdateModal" data-id="{{$production->id}}" data-order="{{$production->order->amount}}" data-production="{{$production->order->production->sum('amount')}}" data-customer="{{$production->order->customer->name}}" data-sock="{{$production->order->sock->name}}" data-color="{{$production->order->color->name}}" data-amount="{{$production->amount}}" data-shift="{{$production->shift}}" data-date="{{$production->date}}"><span class="icon-pencil"></span></button>
                     </td>
                 </tr>
                 @endforeach
@@ -121,7 +121,7 @@
                 </div>
                 <div class="col-lg-2">
                     <label for="inputType" class="col col-form-label">Type</label>
-                    <select id="inputType" name="type" class="form-control" onchange="tes(this)" required>
+                    <select id="inputType" name="type" class="form-control" onchange="inputselect(this)" required>
                         <option selected value="">...</option>
                         <option value="0">Dz</option>
                         <option value="1">Ps</option>
@@ -192,41 +192,58 @@
         </button>
       </div>
       <div class="modal-body">
-        <form class="m-3">
+        <form action="" method="POST" class="m-3" id="form-update">
+            {{ csrf_field() }}
+            @method('PUT')
+            <input name="id" class="border-0 w-100" type="hidden" id="edit-id" value="">
             <div class="form-group row">
-                <div class="col-lg-2">
+                <div class="col-lg-4">
+                    <label for="updateCustomer" class="col col-form-label">Customer</label>
+                    <input type="text" class="form-control" id="updateCustomer" readonly>
+                </div>
+                <div class="col-lg-4">
+                    <label for="updateSock" class="col col-form-label">Sock</label>
+                    <input type="text" class="form-control" id="updateSock" readonly>
+                </div>
+                <div class="col-lg-4">
+                    <label for="updateColor" class="col col-form-label">Color</label>
+                    <input type="text" class="form-control" id="updateColor" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <!-- <div class="col-lg-2">
                     <label for="updateId" class="col col-form-label">ID PO</label>
                     <input type="number" class="form-control" id="updateId" placeholder="ID PO" readonly>
+                </div> -->
+                <div class="col-lg-3">
+                    <label for="updateAmount" class="col col-form-label">Total</label>
+                    <input type="number" name="amount" class="form-control" id="updateAmount" placeholder="Total">
                 </div>
-                <div class="col-lg-2">
-                    <label for="updateTotal" class="col col-form-label">Total</label>
-                    <input type="number" class="form-control" id="updateTotal" placeholder="Total">
-                </div>
-                <div class="col-lg-2">
+                <div class="col-lg-3">
                     <label for="updateType" class="col col-form-label">Type</label>
-                    <select id="updateType" class="form-control" required>
+                    <select id="updateType" name="type" class="form-control" onchange="updateselect(this)" required>
                         <option selected value="">...</option>
                         <option value="0">Dz</option>
                         <option value="1">Ps</option>
                     </select>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-3">
                     <label for="updateShift" class="col col-form-label">Shift</label>
-                    <select id="updateShift" class="form-control" required>
+                    <select id="updateShift" name="shift" class="form-control" required>
                         <option selected value="">...</option>
                         <option value="0">Pagi</option>
                         <option value="1">Siang</option>
                         <option value="2">Malam</option>
                     </select>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <label for="updateDate" class="col col-form-label">Date</label>
-                    <input type="date" class="form-control" id="updateDate">
+                    <input type="date" name="date" class="form-control" id="updateDate">
                 </div>
             </div>
             <div class="form-group row mt-4">
                 <div class="col" style="text-align: center;">
-                    <button type="button" class="btn btn-info"><span class="icon-input"></span> Input</button>
+                    <button type="submit" class="btn btn-info"><span class="icon-input"></span> Input</button>
                 </div>
             </div>
         </form>

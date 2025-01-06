@@ -71,7 +71,22 @@ class ProductionController extends Controller
      */
     public function update(Request $request, Production $production)
     {
-        //
+        $production         = Production::find($request->id);
+        
+        if($request->type == '0'){
+            $production->amount      = $request->amount * 12;
+        } else{
+            $production->amount      = $request->amount;
+
+        }
+        $production->shift  = $request->shift;
+        $production->date   = $request->date ;
+        
+        // Save to Database
+        $production->save();
+        
+        Alert::success('Success!', 'Produksi berhasil diedit');
+        return redirect()->action([ProductionController::class, 'index']);
     }
 
     /**
