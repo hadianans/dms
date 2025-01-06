@@ -1,4 +1,7 @@
 $(document).on("click", ".detail", function () {
+    
+    document.querySelector('#form-update').setAttribute('action', `/order/` + $(this).data('id'));
+  
     $("#edit-id").val( $(this).data('id') );
     $("#updateCustomer").val( $(this).data('customer') );
     $("#updateSock").val( $(this).data('sock') );

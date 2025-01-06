@@ -197,7 +197,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="{{ route('order.update', 1) }}" method="POST" class="m-3">
+        <form action="" method="POST" class="m-3" id="form-update">
             {{ csrf_field() }}
             @method('PUT')
             <input name="id" class="border-0 w-100" type="hidden" id="edit-id" value="">
