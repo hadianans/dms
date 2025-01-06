@@ -91,7 +91,8 @@ function amountFormat(){
       if(Number.isInteger(a) == false){
           let b = a - Math.floor(a);
           let c = Math.round(b * 12);
-          amount = Math.floor(a) + " dz " + c + " ps";
+          // amount = Math.floor(a) + " dz " + c + " ps";
+          amount = element[i].innerHTML + " ps";
       }else{
           amount = a + " dz";
       }

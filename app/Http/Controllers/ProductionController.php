@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Production;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProductionController extends Controller
 {
@@ -12,7 +15,10 @@ class ProductionController extends Controller
      */
     public function index()
     {
-        return view('production');
+        $orders         = Order::all();
+        $productions    = Production::all();
+
+        return view('production')->with(['orders' => $orders, 'productions' => $productions]);
     }
 
     /**
@@ -28,7 +34,20 @@ class ProductionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        if($request->type == '0'){
+            $amount      = $request->amount * 12;
+        } else{
+            $amount      = $request->amount;
+        }
+
+        $production = Production::updateOrCreate(
+            ['order_id' => $request->order_id, 'shift' => $request->shift, 'date' => $request->date],
+            ['amount' => DB::raw("amount + $amount")]
+        );
+        
+        Alert::success('Success!', 'Produksi berhasil disimpan');
+        return redirect()->action([ProductionController::class, 'index']);
     }
 
     /**

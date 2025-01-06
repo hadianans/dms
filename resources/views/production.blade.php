@@ -57,31 +57,40 @@
     <div class="col">
         <table id="table" class="table table-hover">
             <thead class="thead-dark">
-                <th>No</th>
+                <!-- <th>No</th> -->
                 <th>Customer</th>
                 <th>Sock</th>
                 <th>Color</th>
+                <th>Note</th>
                 <th>Produksi</th>
                 <th>Shift</th>
                 <th>Date</th>
                 <th>Action</th>
             </thead>
             <tbody>
-                @for($i = 0; $i < 100; $i++)
+                @foreach($productions as $production)
                 <tr>
-                    <td>{{ $i + 1 }}</td>
-                    <td>Abdul</td>
-                    <td>Oldschool</td>
-                    <td>White</td>
-                    <td>5 dz</td>
-                    <td>Siang</td>
-                    <td>2 November 2024</td>
+                    <!-- <td>{{ $loop->iteration }}</td> -->
+                    <td>{{ $production->order->customer->name }}</td>
+                    <td>{{ $production->order->sock->name }}</td>
+                    <td>{{ $production->order->color->name }}</td>
+                    <td>{{ $production->order->note }}</td>
+                    <td class="amount">{{ $production->amount }}</td>
+
+                    @if($production->shift == '0')
+                        <td>Pagi</td>
+                    @elseif($production->shift == '1')
+                        <td>Siang</td>
+                    @else
+                        <td>Malam</td>
+                    @endif
+                    <td>{{ \Carbon\Carbon::parse($production->date)->translatedFormat('d M Y') }}</td>
                     <td>
                         <a href="#" class="btn btn-danger"><span class="icon-trash"></span></a>
                         <button class="btn btn-warning" data-toggle="modal" data-target="#UpdateModal"><span class="icon-pencil"></span></button>
                     </td>
                 </tr>
-                @endfor
+                @endforeach
             </tbody>
         </table>
     </div>
@@ -99,19 +108,20 @@
         </button>
       </div>
       <div class="modal-body">
-        <form class="mx-3 mb-3">
+        <form action="{{ route('production.store') }}" method="POST" class="mx-3 mb-3">
+            {{ csrf_field() }}
             <div class="form-group row">
                 <div class="col-lg-2">
                     <label for="inputId" class="col col-form-label">ID PO</label>
-                    <input type="number" class="form-control" id="inputId" placeholder="ID PO">
+                    <input type="number" name="order_id" class="form-control" id="inputId" placeholder="ID PO" required>
                 </div>
                 <div class="col-lg-2">
-                    <label for="inputTotal" class="col col-form-label">Total</label>
-                    <input type="number" class="form-control" id="inputTotal" placeholder="Total">
+                    <label for="inputAmount" class="col col-form-label">Total</label>
+                    <input type="number" name="amount" class="form-control" id="inputAmount" placeholder="Total" required>
                 </div>
                 <div class="col-lg-2">
                     <label for="inputType" class="col col-form-label">Type</label>
-                    <select id="inputType" class="form-control" required>
+                    <select id="inputType" name="type" class="form-control" onchange="tes(this)" required>
                         <option selected value="">...</option>
                         <option value="0">Dz</option>
                         <option value="1">Ps</option>
@@ -119,7 +129,7 @@
                 </div>
                 <div class="col-lg-2">
                     <label for="inputShift" class="col col-form-label">Shift</label>
-                    <select id="inputShift" class="form-control" required>
+                    <select id="inputShift" name="shift" class="form-control" required>
                         <option selected value="">...</option>
                         <option value="0">Pagi</option>
                         <option value="1">Siang</option>
@@ -128,12 +138,12 @@
                 </div>
                 <div class="col-lg-4">
                     <label for="inputDate" class="col col-form-label">Date</label>
-                    <input type="date" class="form-control" id="inputDate">
+                    <input type="date" name="date" class="form-control" id="inputDate" required>
                 </div>
             </div>
             <div class="form-group row mt-4">
                 <div class="col" style="text-align: center;">
-                    <button type="button" class="btn btn-info"><span class="icon-input"></span> Input</button>
+                    <button type="submit" class="btn btn-info"><span class="icon-input"></span> Input</button>
                 </div>
             </div>
         </form>
@@ -149,18 +159,18 @@
                         <th>Action</th>
                     </thead>
                     <tbody>
-                        @for($i = 0; $i < 100; $i++)
+                        @foreach($orders as $order)
                         <tr>
-                            <td>Abdul</td>
-                            <td>Oldschool</td>
-                            <td>White</td>
-                            <td>L</td>
-                            <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, accusamus.</td>
+                            <td>{{ $order->customer->name }}</td>
+                            <td>{{ $order->sock->name }}</td>
+                            <td>{{ $order->color->name }}</td>
+                            <td>{{ $order->size }}</td>
+                            <td>{{ $order->note }}</td>
                             <td>
-                                <button class="btn btn-secondary"><span class="icon-add_circle"></span></button>
+                                <button class="btn btn-secondary" onclick="addid(id = {{ $order->id }}, order = {{ $order->amount }}, production = {{ $order->production->sum('amount') }})"><span class="icon-add_circle"></span></button>
                             </td>
                         </tr>
-                        @endfor
+                        @endforeach
                     </tbody>
                 </table>
             </div>
