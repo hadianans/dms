@@ -36,7 +36,6 @@ class ProductionController extends Controller
      */
     public function store(Request $request)
     {
-
         if($request->type == '0'){
             $amount      = $request->amount * 12;
         } else{

@@ -64,21 +64,29 @@
                 <th>Action</th>
             </thead>
             <tbody>
-                @for($i = 0; $i < 100; $i++)
+                @foreach($finishs as $finish)
                 <tr>
-                    <td>{{ $i + 1 }}</td>
-                    <td>Abdul</td>
-                    <td>Oldschool</td>
-                    <td>White</td>
-                    <td>50 dz</td>
-                    <td>Obras</td>
-                    <td>15 Januari 2024</td>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $finish->order->customer->name }}</td>
+                    <td>{{ $finish->order->sock->name }}</td>
+                    <td>{{ $finish->order->color->name }}</td>
+                    <td class="amount">{{ $finish->amount }}</td>
+                    
+                    @if($finish->type == '0')
+                        <td>Obras</td>
+                    @elseif($finish->type == '1')
+                        <td>Oven</td>
+                    @else
+                        <td>Pairing</td>
+                    @endif
+                    
+                    <td>{{ \Carbon\Carbon::parse($finish->date)->translatedFormat('d M Y') }}</td>
                     <td>
                         <a href="#" class="btn btn-danger"><span class="icon-trash"></span></a>
-                        <button class="btn btn-warning" data-toggle="modal" data-target="#UpdateModal"><span class="icon-pencil"></span></button>
+                        <button class="btn btn-warning detail" data-toggle="modal" data-target="#UpdateModal" data-id="{{$finish->id}}" data-customer="{{$finish->order->customer->name}}" data-sock="{{$finish->order->sock->name}}" data-color="{{$finish->order->color->name}}" data-employe="{{$finish->employe_id}}" data-amount="{{$finish->amount}}" data-finishing="{{$finish->type}}" data-date="{{$finish->date}}"><span class="icon-pencil"></span></button>
                     </td>
                 </tr>
-                @endfor
+                @endforeach
             </tbody>
         </table>
     </div>
@@ -96,41 +104,51 @@
         </button>
       </div>
       <div class="modal-body">
-        <form class="mx-3 mb-3">
+        <form action="{{ route('finishing.store') }}" method="POST" class="mx-3 mb-3">
+        {{ csrf_field() }}
             <div class="form-group row">
-                <div class="col-lg-2">
+                <div class="col-lg-2 px-75">
                     <label for="inputId" class="col col-form-label">ID PO</label>
-                    <input type="number" class="form-control" id="inputId" placeholder="ID PO">
+                    <input type="number" name="order_id" class="form-control" id="inputId" placeholder="ID PO" required>
                 </div>
-                <div class="col-lg-2">
-                    <label for="inputTotal" class="col col-form-label">Total</label>
-                    <input type="number" class="form-control" id="inputTotal" placeholder="Total">
+                <div class="col-lg-2 px-75">
+                    <label for="inputAmount" class="col col-form-label">Total</label>
+                    <input type="number" name="amount" class="form-control" id="inputAmount" placeholder="Total" required>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-2 px-75">
                     <label for="inputType" class="col col-form-label">Type</label>
-                    <select id="inputType" class="form-control" required>
+                    <select id="inputType" name="type" class="form-control" required>
                         <option selected value="">...</option>
                         <option value="0">Dz</option>
                         <option value="1">Ps</option>
                     </select>
                 </div>
-                <div class="col-lg-2">
-                    <label for="finishingType" class="col col-form-label">Finishing</label>
-                    <select id="finishingType" class="form-control" required>
+                <div class="col-lg-2 px-75">
+                    <label for="inputEmploye" class="col col-form-label">Pegawai</label>
+                    <select id="inputEmploye" name="employe" class="form-control" required>
                         <option selected value="">...</option>
-                        <option value="0">Obras</option>
-                        <option value="1">Pairing</option>
-                        <option value="2">Oven</option>
+                        @foreach($employes as $employe)
+                            <option value="{{ $employe->id }}">{{ $employe->name }}</option>
+                        @endforeach
                     </select>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-2 px-75">
+                    <label for="inputFinishingType" class="col col-form-label">Finishing</label>
+                    <select id="inputFinishingType" name="finishing" class="form-control" required>
+                        <option selected value="">...</option>
+                        <option value="0">Obras</option>
+                        <option value="1">Oven</option>
+                        <option value="2">Pairing</option>
+                    </select>
+                </div>
+                <div class="col-lg-2 px-75">
                     <label for="inputDate" class="col col-form-label">Date</label>
-                    <input type="date" class="form-control" id="inputDate">
+                    <input type="date" name="date" class="form-control" id="inputDate" required>
                 </div>
             </div>
             <div class="form-group row mt-4">
                 <div class="col" style="text-align: center;">
-                    <button type="button" class="btn btn-info"><span class="icon-input"></span> Input</button>
+                    <button type="submit" class="btn btn-info"><span class="icon-input"></span> Input</button>
                 </div>
             </div>
         </form>
@@ -146,18 +164,18 @@
                         <th>Action</th>
                     </thead>
                     <tbody>
-                        @for($i = 0; $i < 100; $i++)
+                        @foreach($orders as $order)
                         <tr>
-                            <td>Abdul</td>
-                            <td>Oldschool</td>
-                            <td>White</td>
-                            <td>L</td>
-                            <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, accusamus.</td>
+                            <td>{{ $order->customer->name }}</td>
+                            <td>{{ $order->sock->name }}</td>
+                            <td>{{ $order->color->name }}</td>
+                            <td>{{ $order->size }}</td>
+                            <td>{{ $order->note }}</td>
                             <td>
-                                <button class="btn btn-secondary"><span class="icon-add_circle"></span></button>
+                                <button class="btn btn-secondary" onclick="addid(id = {{ $order->id }})"><span class="icon-add_circle"></span></button>
                             </td>
                         </tr>
-                        @endfor
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -179,41 +197,69 @@
         </button>
       </div>
       <div class="modal-body">
-        <form class="m-3">
+        <form action="" method="POST" class="m-3" id="form-update">
+            {{ csrf_field() }}
+            @method('PUT')
+            <input name="id" class="border-0 w-100" type="hidden" id="edit-id" value="">
             <div class="form-group row">
-                <div class="col-lg-2">
+                <div class="col-lg-4 px-75">
+                    <label for="updateCustomer" class="col col-form-label">Total</label>
+                    <input type="text" class="form-control" id="updateCustomer" required readonly>
+                </div>
+                <div class="col-lg-4 px-75">
+                    <label for="updateSock" class="col col-form-label">Total</label>
+                    <input type="text" class="form-control" id="updateSock" required readonly>
+                </div>
+                <div class="col-lg-4 px-75">
+                    <label for="updateColor" class="col col-form-label">Total</label>
+                    <input type="text" class="form-control" id="updateColor" required readonly>
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <!-- <div class="col-lg-2 px-75">
                     <label for="updateId" class="col col-form-label">ID PO</label>
-                    <input type="number" class="form-control" id="updateId" placeholder="ID PO" readonly>
+                    <input type="number" name="order_id" class="form-control" id="updateId" readonly>
+                </div> -->
+
+                <div class="col-lg-3 px-75">
+                    <label for="updateEmploye" class="col col-form-label">Pegawai</label>
+                    <select id="updateEmploye" name="employe" class="form-control" required disabled="true">
+                        <option selected value="">...</option>
+                        @foreach($employes as $employe)
+                            <option value="{{ $employe->id }}">{{ $employe->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
-                <div class="col-lg-2">
-                    <label for="updateTotal" class="col col-form-label">Total</label>
-                    <input type="number" class="form-control" id="updateTotal" placeholder="Total">
+                <div class="col-lg-2 px-75">
+                    <label for="updateFinishingType" class="col col-form-label">Finishing</label>
+                    <select id="updateFinishingType" name="finishing" class="form-control" required>
+                        <option selected value="">...</option>
+                        <option value="0">Obras</option>
+                        <option value="1">Oven</option>
+                        <option value="2">Pairing</option>
+                    </select>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-2 px-75">
+                    <label for="updateAmount" class="col col-form-label">Total</label>
+                    <input type="number" name="amount" class="form-control" id="updateAmount" required>
+                </div>
+                <div class="col-lg-2 px-75">
                     <label for="updateType" class="col col-form-label">Type</label>
-                    <select id="updateType" class="form-control" required>
+                    <select id="updateType" name="type" class="form-control" required>
                         <option selected value="">...</option>
                         <option value="0">Dz</option>
                         <option value="1">Ps</option>
                     </select>
                 </div>
-                <div class="col-lg-2">
-                    <label for="updateFinishing" class="col col-form-label">Finishing</label>
-                    <select id="updateFinishing" class="form-control" required>
-                        <option selected value="">...</option>
-                        <option value="0">Obras</option>
-                        <option value="1">Pairing</option>
-                        <option value="2">Oven</option>
-                    </select>
-                </div>
-                <div class="col-lg-4">
+                <div class="col-lg-3 px-75">
                     <label for="updateDate" class="col col-form-label">Date</label>
-                    <input type="date" class="form-control" id="updateDate">
+                    <input type="date" name="date" class="form-control" id="updateDate" required>
                 </div>
             </div>
             <div class="form-group row mt-4">
                 <div class="col" style="text-align: center;">
-                    <button type="button" class="btn btn-info"><span class="icon-input"></span> Input</button>
+                    <button type="submit" class="btn btn-info"><span class="icon-input"></span> Input</button>
                 </div>
             </div>
         </form>
@@ -224,11 +270,11 @@
 <!-- End Modal Update -->
 
 @push('styles')
-<link href="{{ asset('css/order.css') }}" rel="stylesheet">
+<link href="{{ asset('css/finishing.css') }}" rel="stylesheet">
 @endpush
 
 @push('scripts')
-<script type="text/javascript" src="{{ asset('js/order.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/finishing.js') }}"></script>
 @endpush
 
 @endsection

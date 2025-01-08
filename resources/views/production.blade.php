@@ -78,7 +78,6 @@
                     <td>{{ $production->order->note }}</td>
                     <td>{{ $production->employe->name }}</td>
                     <td class="amount">{{ $production->amount }}</td>
-
                     @if($production->shift == '0')
                         <td>Pagi</td>
                     @elseif($production->shift == '1')
