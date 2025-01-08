@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Employe;
 use App\Models\Production;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,8 +18,9 @@ class ProductionController extends Controller
     {
         $orders         = Order::all();
         $productions    = Production::all();
+        $operators      = Employe::where('role', '0')->get();;
 
-        return view('production')->with(['orders' => $orders, 'productions' => $productions]);
+        return view('production')->with(['orders' => $orders, 'productions' => $productions, 'operators' => $operators]);
     }
 
     /**
@@ -42,7 +44,7 @@ class ProductionController extends Controller
         }
 
         $production = Production::updateOrCreate(
-            ['order_id' => $request->order_id, 'shift' => $request->shift, 'date' => $request->date],
+            ['order_id' => $request->order_id, 'employe_id' => $request->operator, 'shift' => $request->shift, 'date' => $request->date],
             ['amount' => DB::raw("amount + $amount")]
         );
         

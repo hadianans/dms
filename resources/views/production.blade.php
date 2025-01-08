@@ -62,6 +62,7 @@
                 <th>Sock</th>
                 <th>Color</th>
                 <th>Note</th>
+                <th>Operator</th>
                 <th>Produksi</th>
                 <th>Shift</th>
                 <th>Date</th>
@@ -75,6 +76,7 @@
                     <td>{{ $production->order->sock->name }}</td>
                     <td>{{ $production->order->color->name }}</td>
                     <td>{{ $production->order->note }}</td>
+                    <td>{{ $production->employe->name }}</td>
                     <td class="amount">{{ $production->amount }}</td>
 
                     @if($production->shift == '0')
@@ -87,7 +89,7 @@
                     <td>{{ \Carbon\Carbon::parse($production->date)->translatedFormat('d M Y') }}</td>
                     <td>
                         <a href="#" class="btn btn-danger"><span class="icon-trash"></span></a>
-                        <button class="btn btn-warning detail" data-toggle="modal" data-target="#UpdateModal" data-id="{{$production->id}}" data-order="{{$production->order->amount}}" data-production="{{$production->order->production->sum('amount')}}" data-customer="{{$production->order->customer->name}}" data-sock="{{$production->order->sock->name}}" data-color="{{$production->order->color->name}}" data-amount="{{$production->amount}}" data-shift="{{$production->shift}}" data-date="{{$production->date}}"><span class="icon-pencil"></span></button>
+                        <button class="btn btn-warning detail" data-toggle="modal" data-target="#UpdateModal" data-id="{{$production->id}}" data-order="{{$production->order->amount}}" data-production="{{$production->order->production->sum('amount')}}" data-customer="{{$production->order->customer->name}}" data-sock="{{$production->order->sock->name}}" data-color="{{$production->order->color->name}}" data-amount="{{$production->amount}}" data-operator="{{$production->employe->id}}" data-shift="{{$production->shift}}" data-date="{{$production->date}}"><span class="icon-pencil"></span></button>
                     </td>
                 </tr>
                 @endforeach
@@ -111,15 +113,15 @@
         <form action="{{ route('production.store') }}" method="POST" class="mx-3 mb-3">
             {{ csrf_field() }}
             <div class="form-group row">
-                <div class="col-lg-2">
+                <div class="col-lg-2 px-75">
                     <label for="inputId" class="col col-form-label">ID PO</label>
                     <input type="number" name="order_id" class="form-control" id="inputId" placeholder="ID PO" required>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-2 px-75">
                     <label for="inputAmount" class="col col-form-label">Total</label>
                     <input type="number" name="amount" class="form-control" id="inputAmount" placeholder="Total" required>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-2 px-75">
                     <label for="inputType" class="col col-form-label">Type</label>
                     <select id="inputType" name="type" class="form-control" onchange="inputselect(this)" required>
                         <option selected value="">...</option>
@@ -127,7 +129,7 @@
                         <option value="1">Ps</option>
                     </select>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-2 px-75">
                     <label for="inputShift" class="col col-form-label">Shift</label>
                     <select id="inputShift" name="shift" class="form-control" required>
                         <option selected value="">...</option>
@@ -136,7 +138,16 @@
                         <option value="2">Malam</option>
                     </select>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-2 px-75">
+                    <label for="inputOperator" class="col col-form-label">Operator</label>
+                    <select id="inputOperator" name="operator" class="form-control" required>
+                        <option selected value="">...</option>
+                        @foreach($operators as $operator)
+                        <option value="{{ $operator->id }}">{{ $operator->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-lg-2 px-75">
                     <label for="inputDate" class="col col-form-label">Date</label>
                     <input type="date" name="date" class="form-control" id="inputDate" required>
                 </div>
@@ -197,17 +208,26 @@
             @method('PUT')
             <input name="id" class="border-0 w-100" type="hidden" id="edit-id" value="">
             <div class="form-group row">
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <label for="updateCustomer" class="col col-form-label">Customer</label>
                     <input type="text" class="form-control" id="updateCustomer" readonly>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <label for="updateSock" class="col col-form-label">Sock</label>
                     <input type="text" class="form-control" id="updateSock" readonly>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <label for="updateColor" class="col col-form-label">Color</label>
                     <input type="text" class="form-control" id="updateColor" readonly>
+                </div>
+                <div class="col-lg-3">
+                    <label for="updateOperator" class="col col-form-label">Operator</label>
+                    <select id="updateOperator" name="operator" class="form-control" disabled="true">
+                        <option value="">...</option>
+                        @foreach($operators as $operator)
+                        <option value="{{ $operator->id }}">{{ $operator->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="form-group row">

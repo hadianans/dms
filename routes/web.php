@@ -7,6 +7,7 @@ use App\Http\Controllers\SockController;
 use App\Http\Controllers\YarnController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\EmployeController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FinishingController;
 use App\Http\Controllers\ProductionController;
@@ -35,6 +36,7 @@ Route::middleware(['auth'])->group(function() {
     Route::resource('controller', Controller::class);
     Route::resource('color', ColorController::class);
     Route::resource('order', OrderController::class);
+    Route::resource('employe', EmployeController::class);
     Route::resource('customer', CustomerController::class);
     Route::resource('finishing', FinishingController::class);
     Route::resource('production', ProductionController::class);

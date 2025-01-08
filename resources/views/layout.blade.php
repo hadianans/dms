@@ -82,6 +82,7 @@
                     <li class="Customer"><a href="/customer">Customer</a></li>
                     <li class="Sock"><a href="/sock">Sock</a></li>
                     <li class="Color"><a href="/color">Color</a></li>
+                    <li class="Color"><a href="/employe">Employe</a></li>
                   </ul>
                 </div>
               </div>

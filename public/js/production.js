@@ -26,6 +26,7 @@ $(document).on("click", ".detail", function () {
     $("#updateColor").val( $(this).data('color') );
     $("#updateAmount").val( $(this).data('amount') );
     $("#updateType").val( '1' );
+    $("#updateOperator").val( $(this).data('operator') );
     $("#updateShift").val( $(this).data('shift') );
     $("#updateDate").val( $(this).data('date') );
 
