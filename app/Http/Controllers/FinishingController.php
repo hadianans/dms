@@ -16,9 +16,9 @@ class FinishingController extends Controller
      */
     public function index()
     {
-        $orders         = Order::all();
-        $finishs        = Finishing::all();
-        $employes       = Employe::whereIn('role', ['1', '2'])->get();
+        $finishs        = Finishing::with(['order', 'employe'])->get();
+        $employes       = Employe::whereIn('role', ['1', '2'])->where('status', '1')->get();
+        $orders         = Order::with(['customer', 'sock', 'color'])->where('status', '0')->get();
 
         return view('finishing')->with(['orders' => $orders, 'finishs' => $finishs, 'employes' => $employes]);
     }

@@ -16,7 +16,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders     = Order::all();
+        $orders     = Order::with(['customer', 'sock', 'color'])->where('status', '0')->get();
         $socks      = Sock::all();
         $colors     = Color::all();
         $customers  = Customer::all();

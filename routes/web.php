@@ -32,7 +32,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/', function () {return view('dashboard');});
 
     Route::resource('sock', SockController::class);
-    Route::resource('yarn', YarnController::class);
+    // Route::resource('yarn', YarnController::class);
     Route::resource('controller', Controller::class);
     Route::resource('color', ColorController::class);
     Route::resource('order', OrderController::class);

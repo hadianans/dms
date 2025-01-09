@@ -12,7 +12,8 @@ class YarnController extends Controller
      */
     public function index()
     {
-        return view('yarn');
+        $yarns = Yarn::all();
+        return view('yarn')->with(['yarns' => $yarns]);
     }
 
     /**

@@ -88,7 +88,7 @@
               </div>
             </li>
 
-            <li class="Yarn"><a href="/yarn"><span class="icon-cubes mr-3"></span>Yarn</a></li>
+            <!-- <li class="Yarn"><a href="/yarn"><span class="icon-cubes mr-3"></span>Yarn</a></li> -->
 
             <li><a href="/logout"><span class="icon-sign-out mr-3"></span>Sign out</a></li>
           </ul>

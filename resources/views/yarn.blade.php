@@ -135,6 +135,10 @@
                     <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
                     <input type="date" class="form-control" id="inputDate" placeholder="harga benang">
                 </div>
+                <div class="col">
+                    <label for="inputNote" class="col-sm-2 col-form-label">Note</label>
+                    <input type="text" class="form-control" id="inputNote" placeholder="catatan">
+                </div>
             </div>
             <div class="form-group row mt-4">
                 <div class="col" style="text-align: center;">

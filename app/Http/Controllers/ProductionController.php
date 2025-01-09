@@ -16,9 +16,9 @@ class ProductionController extends Controller
      */
     public function index()
     {
-        $orders         = Order::all();
-        $productions    = Production::all();
-        $operators      = Employe::where('role', '0')->get();;
+        $productions    = Production::with(['order', 'employe'])->get();
+        $operators      = Employe::where('role', '0')->where('status', '1')->get();
+        $orders         = Order::with(['customer', 'sock', 'color'])->where('status', '0')->get();
 
         return view('production')->with(['orders' => $orders, 'productions' => $productions, 'operators' => $operators]);
     }
