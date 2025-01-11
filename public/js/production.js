@@ -1,3 +1,27 @@
+$(document).ready(function() {
+    var table = $('#production-table').DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        ajax: {url:"/dataproduction"},
+        columns: [
+            { data: 'customer', name: 'customer' },
+            { data: 'sock', name: 'sock' },
+            { data: 'color', name: 'color' },
+            { data: 'note', name: 'note' },
+            { data: 'operator', name: 'operator' },
+            { data: 'production', name: 'production', createdCell: function(td) { $(td).addClass('amount'); } },
+            { data: 'shift', name: 'shift' },
+            { data: 'date', name: 'date' },
+            { data: 'action', name: 'action' }
+        ]
+    });
+  
+    table.on('draw', function() {
+      amountFormat();
+    });
+  });
+
 var inputmax = 0, updatemax = 0;
 
 function addid(id, order, production){

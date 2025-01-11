@@ -29,7 +29,7 @@ class OrderController extends Controller
         return view('order')->with(['orders' => $orders, 'socks' => $socks, 'colors' => $colors, 'customers' => $customers,]);
     }
 
-    public function dataorder(Request $request){
+    public function dataOrder(Request $request){
 
         if($request->ajax()){
             

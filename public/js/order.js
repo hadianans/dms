@@ -1,8 +1,8 @@
-
 $(document).ready(function() {
   var table = $('#order-table').DataTable({
       processing: true,
       serverSide: true,
+      responsive: true,
       ajax: {url:"/dataorder"},
       columns: [
           { data: 'customer', name: 'customer' },
@@ -19,7 +19,7 @@ $(document).ready(function() {
 
   table.on('draw', function() {
     amountFormat();
-});
+  });
 });
 
 // amountFormat();

@@ -1,5 +1,7 @@
 $(document).ready( function () {
   
+  amountFormat();
+  
   $("#table").DataTable({
     responsive: true,
   });

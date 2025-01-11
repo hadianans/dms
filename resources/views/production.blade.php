@@ -55,7 +55,7 @@
 
 <div class="row">
     <div class="col">
-        <table id="table" class="table table-hover">
+        <table id="production-table" class="table table-hover">
             <thead class="thead-dark">
                 <!-- <th>No</th> -->
                 <th>Customer</th>
@@ -69,29 +69,7 @@
                 <th>Action</th>
             </thead>
             <tbody>
-                @foreach($productions as $production)
-                <tr>
-                    <!-- <td>{{ $loop->iteration }}</td> -->
-                    <td>{{ $production->order->customer->name }}</td>
-                    <td>{{ $production->order->sock->name }}</td>
-                    <td>{{ $production->order->color->name }}</td>
-                    <td>{{ $production->order->note }}</td>
-                    <td>{{ $production->employe->name }}</td>
-                    <td class="amount">{{ $production->amount }}</td>
-                    @if($production->shift == '0')
-                        <td>Pagi</td>
-                    @elseif($production->shift == '1')
-                        <td>Siang</td>
-                    @else
-                        <td>Malam</td>
-                    @endif
-                    <td>{{ \Carbon\Carbon::parse($production->date)->translatedFormat('d M Y') }}</td>
-                    <td>
-                        <a href="#" class="btn btn-danger" onclick="deleteData(id = '{{$production->id}}', url = 'production')"><span class="icon-trash"></span></a>
-                        <button class="btn btn-warning detail" data-toggle="modal" data-target="#UpdateModal" data-id="{{$production->id}}" data-order="{{$production->order->amount}}" data-production="{{$production->order->production->sum('amount')}}" data-customer="{{$production->order->customer->name}}" data-sock="{{$production->order->sock->name}}" data-color="{{$production->order->color->name}}" data-amount="{{$production->amount}}" data-operator="{{$production->employe->id}}" data-shift="{{$production->shift}}" data-date="{{$production->date}}"><span class="icon-pencil"></span></button>
-                    </td>
-                </tr>
-                @endforeach
+                
             </tbody>
         </table>
     </div>
