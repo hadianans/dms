@@ -104,13 +104,6 @@
 </div>
 <!-- End Modal Update -->
 
-
-{{-- form delete hidden --}}
-<form action="" method="POST" id="form-delete">
-    <input type="hidden" name="_method" value="DELETE">
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-</form>
-
 @push('styles')
 <link href="{{ asset('css/color.css') }}" rel="stylesheet">
 @endpush

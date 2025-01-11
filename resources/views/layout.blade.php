@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Logo -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/logo.png') }}" />
 
@@ -70,7 +70,7 @@
 
             <li class="Order"><a href="/order"><span class="icon-work mr-3"></span>Order</a></li>
             <li class="Production"><a href="/production"><span class="icon-gears mr-3"></span>Production</a></li>
-            <li class="Finishing"><a href="/finishing"><span class="icon-pie-chart mr-3"></span>Finishing</a></li>
+            <!-- <li class="Finishing"><a href="/finishing"><span class="icon-pie-chart mr-3"></span>Finishing</a></li> -->
 
             <li class="Data">
               <a href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" class="collapsible">

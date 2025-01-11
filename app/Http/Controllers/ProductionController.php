@@ -95,6 +95,9 @@ class ProductionController extends Controller
      */
     public function destroy(Production $production)
     {
-        //
+        $production->delete();
+           
+        Alert::success('Success!', 'Produksi berhasil dihapus!');
+        return redirect()->action([ProductionController::class, 'index']);
     }
 }

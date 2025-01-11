@@ -55,41 +55,21 @@
 
 <div class="row">
     <div class="col">
-        <table id="table" class="table table-hover">
+        <table id="order-table" class="table table-hover">
             <thead class="thead-dark">
-                <th>No</th>
                 <th>Customer</th>
                 <th>Sock</th>
                 <th>Color</th>
-                <th>Size</th>
                 <th>Total</th>
                 <th>Deadline</th>
                 <th>Produksi</th>
-                <th>Finishing</th>
+                <!-- <th>Finishing</th> -->
                 <th>Note</th>
+                <th>Priority</th>
                 <th>Action</th>
             </thead>
             <tbody>
-                @foreach($orders as $order)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $order->customer->name }}</td>
-                    <td>{{ $order->sock->name }}</td>
-                    <td>{{ $order->color->name }}</td>
-                    <td>{{ $order->size }}</td>
-                    <td class="amount">{{ $order->amount }}</td>
-                    <td>{{ \Carbon\Carbon::parse($order->deadline)->translatedFormat('d M Y') }}</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>{{ $order->note }}</td>
-                    <td>
-                        <a href="#" class="btn btn-danger" onclick="deleteData(id = '{{$order->id}}', url = 'order')"><span class="icon-trash"></span></a>
-                        <a href="#" class="btn btn-warning detail" data-toggle="modal" data-target="#UpdateModal" data-id="{{$order->id}}" data-customer="{{$order->customer->name}}" data-sock="{{$order->sock->name}}" data-color="{{$order->color->name}}" data-size="{{$order->size}}" data-amount="{{$order->amount}}" data-price="{{$order->price}}" data-deadline="{{$order->deadline}}" data-note="{{$order->note}}"><span class="icon-pencil"></span></a>
-                        <a href="#" class="btn btn-success" onclick="doneOrder(id = '{{$order->id}}')"><span class="icon-check-square"></span></a>
-                    </td>
-                    <!-- href="{{ route('order.edit', $order->id) }}" -->
-                </tr>
-                @endforeach
+                
             </tbody>
         </table>
     </div>

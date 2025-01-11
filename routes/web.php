@@ -38,8 +38,10 @@ Route::middleware(['auth'])->group(function() {
     Route::resource('order', OrderController::class);
     Route::resource('employe', EmployeController::class);
     Route::resource('customer', CustomerController::class);
-    Route::resource('finishing', FinishingController::class);
+    // Route::resource('finishing', FinishingController::class);
     Route::resource('production', ProductionController::class);
 
     Route::get('/history', [OrderController::class, 'history']);
+    Route::get('/dataorder', [OrderController::class, 'dataorder']);
+    Route::post('/change-priority', [OrderController::class, 'changePriority'])->name('change.priority');
 });

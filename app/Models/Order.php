@@ -18,6 +18,7 @@ class Order extends Model
         'price',
         'deadline',
         'note',
+        'priority',
         'status',
         'updated_at',
         'created_at'

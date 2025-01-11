@@ -87,7 +87,7 @@
                     @endif
                     <td>{{ \Carbon\Carbon::parse($production->date)->translatedFormat('d M Y') }}</td>
                     <td>
-                        <a href="#" class="btn btn-danger"><span class="icon-trash"></span></a>
+                        <a href="#" class="btn btn-danger" onclick="deleteData(id = '{{$production->id}}', url = 'production')"><span class="icon-trash"></span></a>
                         <button class="btn btn-warning detail" data-toggle="modal" data-target="#UpdateModal" data-id="{{$production->id}}" data-order="{{$production->order->amount}}" data-production="{{$production->order->production->sum('amount')}}" data-customer="{{$production->order->customer->name}}" data-sock="{{$production->order->sock->name}}" data-color="{{$production->order->color->name}}" data-amount="{{$production->amount}}" data-operator="{{$production->employe->id}}" data-shift="{{$production->shift}}" data-date="{{$production->date}}"><span class="icon-pencil"></span></button>
                     </td>
                 </tr>
