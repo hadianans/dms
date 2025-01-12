@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 05, 2025 at 10:15 AM
+-- Generation Time: Jan 12, 2025 at 08:45 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -34,14 +34,6 @@ CREATE TABLE `color` (
   `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `color`
---
-
-INSERT INTO `color` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Putih', '2025-01-04', '2025-01-04'),
-(2, 'Hitam', '2025-01-04', '2025-01-04');
-
 -- --------------------------------------------------------
 
 --
@@ -58,12 +50,21 @@ CREATE TABLE `customer` (
   `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `customer`
+-- Table structure for table `employe`
 --
 
-INSERT INTO `customer` (`id`, `name`, `email`, `phone`, `address`, `created_at`, `updated_at`) VALUES
-(1, 'Hadi', 'hadianans01@gmail.com', 895354488400, 'Jalan Cisangkan Hilir, RT 06/08, Kavling Husada No.6, Padasuka, Cimahi Tengah, Cimahi', '2025-01-04', '2025-01-04');
+CREATE TABLE `employe` (
+  `id` int(11) NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `phone` bigint(20) NOT NULL,
+  `role` enum('0','1','2') NOT NULL,
+  `status` enum('0','1') NOT NULL,
+  `created_at` date NOT NULL,
+  `updated_at` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -74,7 +75,8 @@ INSERT INTO `customer` (`id`, `name`, `email`, `phone`, `address`, `created_at`,
 CREATE TABLE `finishing` (
   `id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
-  `type` enum('0','1','2','3') NOT NULL,
+  `employe_id` int(11) NOT NULL,
+  `type` enum('0','1','2') NOT NULL,
   `amount` int(11) NOT NULL,
   `date` date NOT NULL,
   `created_at` date NOT NULL,
@@ -97,17 +99,11 @@ CREATE TABLE `order` (
   `price` bigint(20) NOT NULL,
   `deadline` date NOT NULL,
   `note` varchar(255) NOT NULL,
+  `priority` enum('0','1') NOT NULL,
   `status` enum('0','1') NOT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `order`
---
-
-INSERT INTO `order` (`id`, `customer_id`, `sock_id`, `color_id`, `size`, `amount`, `price`, `deadline`, `note`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, 1, 60, 1200, 6500000, '2025-01-19', '-', '1', '2025-01-05', '2025-01-05');
 
 -- --------------------------------------------------------
 
@@ -118,6 +114,7 @@ INSERT INTO `order` (`id`, `customer_id`, `sock_id`, `color_id`, `size`, `amount
 CREATE TABLE `production` (
   `id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
+  `employe_id` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
   `shift` enum('0','1','2') NOT NULL,
   `date` date NOT NULL,
@@ -137,16 +134,6 @@ CREATE TABLE `sock` (
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `sock`
---
-
-INSERT INTO `sock` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Oldschool', '2025-01-04', '2025-01-04'),
-(2, 'Mensock', '2025-01-04', '2025-01-04'),
-(3, 'Jempol', '2025-01-04', '2025-01-04'),
-(4, 'School', '2025-01-04', '2025-01-04');
 
 -- --------------------------------------------------------
 
@@ -205,10 +192,17 @@ ALTER TABLE `customer`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `employe`
+--
+ALTER TABLE `employe`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `finishing`
 --
 ALTER TABLE `finishing`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_id` (`order_id`);
 
 --
 -- Indexes for table `order`
@@ -221,7 +215,8 @@ ALTER TABLE `order`
 -- Indexes for table `production`
 --
 ALTER TABLE `production`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_id` (`order_id`);
 
 --
 -- Indexes for table `sock`
@@ -258,22 +253,28 @@ ALTER TABLE `customer`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `employe`
+--
+ALTER TABLE `employe`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `finishing`
 --
 ALTER TABLE `finishing`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `production`
 --
 ALTER TABLE `production`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `sock`
