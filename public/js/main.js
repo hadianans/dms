@@ -1,6 +1,6 @@
 $(document).ready( function () {
   
-  amountFormat();
+  // amountFormat();
   
   $("#table").DataTable({
     responsive: true,

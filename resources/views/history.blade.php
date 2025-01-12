@@ -12,9 +12,9 @@
 <div class="row pb-4">
     <div class="col">
         <div class="card border-primary mb-3">
-            <div class="card-header bg-primary text-white"><b>Total Order</b></div>
+            <div class="card-header bg-primary text-white"><b>Total PO</b></div>
             <div class="card-body text-dark">
-                <h4 class="card-title"><span class="icon-th-list mr-3"></span>2015Dz</h4>
+                <h4 class="card-title amount"><span class="icon-th-list mr-3"></span>{{ \App\Models\Order::sum('amount') }}</h4>
             </div>
         </div>
     </div>
@@ -22,7 +22,7 @@
         <div class="card border-danger mb-3">
             <div class="card-header bg-danger text-white"><b>Customer</b></div>
             <div class="card-body text-dark">
-                <h4 class="card-title"><span class="icon-clock-o mr-3"></span>75Dz</h4>
+                <h4 class="card-title"><span class="icon-clock-o mr-3"></span>{{ \App\Models\Customer::count() }}</h4>
             </div>
         </div>
     </div>

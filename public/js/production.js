@@ -35,10 +35,6 @@ $(document).ready(function() {
     table.on('draw', function() {
       amountFormat();
     });
-
-    detail.on('draw', function() {
-        amountFormat();
-      });
   });
 
 var inputmax = 0, updatemax = 0;

@@ -11,26 +11,18 @@
 
 <div class="row pb-4">
     <div class="col">
-        <div class="card border-primary mb-3">
-            <div class="card-header bg-primary text-white"><b>Total PO</b></div>
-            <div class="card-body text-dark">
-                <h4 class="card-title"><span class="icon-th-list mr-3"></span>2015Dz</h4>
-            </div>
-        </div>
-    </div>
-    <div class="col">
         <div class="card border-danger mb-3">
-            <div class="card-header bg-danger text-white"><b>Pending</b></div>
+            <div class="card-header bg-danger text-white"><b>PO Bulanan</b></div>
             <div class="card-body text-dark">
-                <h4 class="card-title"><span class="icon-clock-o mr-3"></span>75Dz</h4>
+                <h4 class="card-title amount"><span class="icon-clock-o mr-3"></span>{{ \App\Models\Order::whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->sum('amount') }}</h4>
             </div>
         </div>
     </div>
     <div class="col">
-        <div class="card border-warning mb-3">
-            <div class="card-header bg-warning text-white"><b>Progress</b></div>
+        <div class="card border-info mb-3">
+            <div class="card-header bg-info text-white"><b>Progress</b></div>
             <div class="card-body text-dark">
-                <h4 class="card-title"><span class="icon-gears mr-3"></span>450Dz</h4>
+                <h4 class="card-title amount"><span class="icon-gears mr-3"></span>{{ \App\Models\Order::where('status', '0')->whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->sum('amount') }}</h4>
             </div>
         </div>
     </div>
@@ -38,7 +30,7 @@
         <div class="card border-success mb-3">
             <div class="card-header bg-success text-white"><b>Done</b></div>
             <div class="card-body text-dark">
-                <h4 class="card-title"><span class="icon-check-square-o mr-3"></span>1050Dz</h4>
+                <h4 class="card-title amount"><span class="icon-check-square-o mr-3"></span>{{ \App\Models\Order::where('status', '1')->whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->sum('amount') }}</h4>
             </div>
         </div>
     </div>
