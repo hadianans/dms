@@ -16,10 +16,29 @@ $(document).ready(function() {
             { data: 'action', name: 'action' }
         ]
     });
+
+    var detail = $('#order-detail').DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        ajax: {url:"/dataorderproduction"},
+        columns: [
+            { data: 'customer', name: 'customer' },
+            { data: 'sock', name: 'sock' },
+            { data: 'color', name: 'color' },
+            { data: 'size', name: 'size' },
+            { data: 'note', name: 'note' },
+            { data: 'action', name: 'action' }
+        ]
+    });
   
     table.on('draw', function() {
       amountFormat();
     });
+
+    detail.on('draw', function() {
+        amountFormat();
+      });
   });
 
 var inputmax = 0, updatemax = 0;

@@ -137,7 +137,7 @@
         </form>
         <div class="form-group row m-3">
             <div class="col">
-                <table id="table-detail" class="table table-hover">
+                <table id="order-detail" class="table table-hover">
                     <thead class="thead-dark">
                         <th>Customer</th>
                         <th>Sock</th>
@@ -147,18 +147,7 @@
                         <th>Action</th>
                     </thead>
                     <tbody>
-                        @foreach($orders as $order)
-                        <tr>
-                            <td>{{ $order->customer->name }}</td>
-                            <td>{{ $order->sock->name }}</td>
-                            <td>{{ $order->color->name }}</td>
-                            <td>{{ $order->size }}</td>
-                            <td>{{ $order->note }}</td>
-                            <td>
-                                <button class="btn btn-secondary" onclick="addid(id = {{ $order->id }}, order = {{ $order->amount }}, production = {{ $order->production->sum('amount') }})"><span class="icon-add_circle"></span></button>
-                            </td>
-                        </tr>
-                        @endforeach
+                        
                     </tbody>
                 </table>
             </div>

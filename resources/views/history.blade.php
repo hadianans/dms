@@ -30,47 +30,30 @@
 
 <div class="row">
     <div class="col">
-        <table id="table" class="table table-hover">
+        <table id="history-table" class="table table-hover">
             <thead class="thead-dark">
-                <th>No</th>
                 <th>Customer</th>
                 <th>Sock</th>
                 <th>Color</th>
                 <th>Size</th>
                 <th>Total</th>
+                <th>Price</th>
                 <th>Done</th>
                 <th>Note</th>
-                <!-- <th>Action</th> -->
             </thead>
             <tbody>
-                @for($i = 0; $i < 100; $i++)
-                <tr>
-                    <td>{{ $i + 1 }}</td>
-                    <td>Abdul</td>
-                    <td>Oldschool</td>
-                    <td>White</td>
-                    <td>L</td>
-                    <td>50 dz</td>
-                    <td>15 Januari</td>
-                    <td>Oldschool putih garis hitam, size L</td>
-                    <!-- <td>
-                        <a href="#" class="btn btn-danger"><span class="icon-trash"></span></a>
-                        <button class="btn btn-warning" data-toggle="modal" data-target="#UpdateModal"><span class="icon-pencil"></span></button>
-                        <a href="#" class="btn btn-success"><span class="icon-check-square"></span></a>
-                    </td> -->
-                </tr>
-                @endfor
+                
             </tbody>
         </table>
     </div>
 </div>
 
 @push('styles')
-<link href="{{ asset('css/order.css') }}" rel="stylesheet">
+<link href="{{ asset('css/history.css') }}" rel="stylesheet">
 @endpush
 
 @push('scripts')
-<script type="text/javascript" src="{{ asset('js/order.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/history.js') }}"></script>
 @endpush
 
 @endsection

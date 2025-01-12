@@ -33,8 +33,7 @@ class OrderController extends Controller
 
         if($request->ajax()){
             
-            $data = new Order;
-            $data = $data->get();
+            $data = Order::where('status', '0')->get();;
 
             return DataTables::of($data)
             ->addColumn('customer',function($data){
@@ -76,6 +75,42 @@ class OrderController extends Controller
             ->make(true);
         }
 
+        return view('order')->with([compact('request')]);
+
+    }
+
+    public function dataHistory(Request $request){
+
+        if($request->ajax()){
+            
+            $data = Order::where('status', '1')->get();;
+
+            return DataTables::of($data)
+            ->addColumn('customer',function($data){
+                return $data->customer->name;
+            })
+            ->addColumn('sock',function($data){
+                return $data->sock->name;
+            })
+            ->addColumn('color',function($data){
+                return $data->color->name;
+            })
+            ->addColumn('size',function($data){
+                return $data->size;
+            })
+            ->addColumn('amount',function($data){
+                return $data->amount;
+            })
+            ->addColumn('price',function($data){
+                return $data->price;
+            })
+            ->addColumn('done',function($data){
+                return Carbon::parse($data->updated_at)->translatedFormat('d M Y');
+            })
+            ->addColumn('note',function($data){
+                return $data->note;
+            })->make(true);
+        }
 
         return view('order')->with([compact('request')]);
 

@@ -43,6 +43,8 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('/history', [OrderController::class, 'history']);
     Route::get('/dataorder', [OrderController::class, 'dataOrder']);
+    Route::get('/datahistory', [OrderController::class, 'dataHistory']);
+    Route::post('/change-priority', [OrderController::class, 'changePriority']);
     Route::get('/dataproduction', [ProductionController::class, 'dataProduction']);
-    Route::post('/change-priority', [OrderController::class, 'changePriority'])->name('change.priority');
+    Route::get('/dataorderproduction', [ProductionController::class, 'dataOrderProduction']);
 });

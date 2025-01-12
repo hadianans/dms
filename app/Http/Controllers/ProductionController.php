@@ -77,6 +77,43 @@ class ProductionController extends Controller
 
     }
 
+    public function dataOrderProduction(Request $request){
+
+        if($request->ajax()){
+            
+            $data = Order::where('status', '0')->get();;
+
+            return DataTables::of($data)
+            ->addColumn('customer',function($data){
+                return $data->customer->name;
+            })
+            ->addColumn('sock',function($data){
+                return $data->sock->name;
+            })
+            ->addColumn('color',function($data){
+                return $data->color->name;
+            })
+            ->addColumn('size',function($data){
+                return $data->size;
+            })
+            ->addColumn('note',function($data){
+                return $data->note;
+            })
+            ->addColumn('action',function($data){
+                return '
+                <button class="btn btn-secondary" onclick="addid(id ='. $data->id.', order = '. $data->amount.', production = '. $data->production->sum("amount").')"><span class="icon-add_circle"></span></button>
+                ';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+        }
+
+        return view('order')->with([compact('request')]);
+
+    }
+
+
+
     /**
      * Show the form for creating a new resource.
      */
