@@ -14,10 +14,13 @@ $(document).ready(function() {
             { data: 'shift', name: 'shift' },
             { data: 'date', name: 'date' },
             { data: 'action', name: 'action' }
-        ]
+        ],
+        initComplete: function() {
+          amountFormat();
+        }
     });
 
-    var detail = $('#order-detail').DataTable({
+    $('#order-detail').DataTable({
         processing: true,
         serverSide: true,
         responsive: true,
@@ -30,10 +33,6 @@ $(document).ready(function() {
             { data: 'note', name: 'note' },
             { data: 'action', name: 'action' }
         ]
-    });
-  
-    table.on('draw', function() {
-      amountFormat();
     });
   });
 

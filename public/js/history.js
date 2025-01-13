@@ -13,10 +13,9 @@ $(document).ready(function() {
             { data: 'price', name: 'price' },
             { data: 'done', name: 'done' },
             { data: 'note', name: 'note' },
-        ]
-    });
-  
-    table.on('draw', function() {
-      amountFormat();
+        ],
+        initComplete: function() {
+          amountFormat();
+        }
     });
   });
