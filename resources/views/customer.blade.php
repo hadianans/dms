@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<div class="row pb-4">
+<!-- <div class="row pb-4">
     <div class="col">
         <div class="card border-primary mb-3">
             <div class="card-header bg-primary text-white"><b>Total Customer</b></div>
@@ -26,7 +26,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <div class="row pb-4">
     <div class="col" style="text-align: center;">
