@@ -143,7 +143,7 @@
                         <th>Sock</th>
                         <th>Color</th>
                         <th>Size</th>
-                        <th>Note</th>
+                        <th style="width: 30%;">Note</th>
                         <th>Action</th>
                     </thead>
                     <tbody>

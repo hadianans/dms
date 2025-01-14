@@ -39,7 +39,7 @@
                 <th>Total</th>
                 <th>Price</th>
                 <th>Done</th>
-                <th>Note</th>
+                <ths tyle="width: 25%;">Note</th>
             </thead>
             <tbody>
                 

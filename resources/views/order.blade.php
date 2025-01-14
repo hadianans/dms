@@ -56,7 +56,7 @@
                 <th>Deadline</th>
                 <th>Produksi</th>
                 <!-- <th>Finishing</th> -->
-                <th>Note</th>
+                <th style="width: 20%;">Note</th>
                 <th>Priority</th>
                 <th>Action</th>
             </thead>
