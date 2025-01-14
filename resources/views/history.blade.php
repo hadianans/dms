@@ -14,7 +14,7 @@
         <div class="card border-primary mb-3">
             <div class="card-header bg-primary text-white"><b>Total PO</b></div>
             <div class="card-body text-dark">
-                <h4 class="card-title amount"><span class="icon-th-list mr-3"></span>{{ \App\Models\Order::sum('amount') }}</h4>
+                <h4 class="card-title"><span class="icon-th-list mr-3"></span><span class="amount-dash">{{ \App\Models\Order::sum('amount') }}</span></h4>
             </div>
         </div>
     </div>

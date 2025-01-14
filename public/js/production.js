@@ -14,10 +14,7 @@ $(document).ready(function() {
             { data: 'shift', name: 'shift' },
             { data: 'date', name: 'date' },
             { data: 'action', name: 'action' }
-        ],
-        initComplete: function() {
-          amountFormat();
-        }
+        ]
     });
 
     $('#order-detail').DataTable({
@@ -34,6 +31,11 @@ $(document).ready(function() {
             { data: 'action', name: 'action' }
         ]
     });
+
+    table.on('draw', function() {
+        amountFormat();
+      });
+
   });
 
 var inputmax = 0, updatemax = 0;

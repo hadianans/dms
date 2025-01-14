@@ -14,14 +14,17 @@ $(document).ready(function() {
           { data: 'note', name: 'note' },
           { data: 'priority', name: 'priority' },
           { data: 'action', name: 'action' }
-      ],
-      initComplete: function() {
-        amountFormat();
-      }
+      ]
+      // ,
+      // initComplete: function() {
+      //   amountFormat();
+      // }
   });
-  // table.on('draw', function() {
-  //   amountFormat();
-  // });
+  
+  table.on('draw', function() {
+    amountFormat();
+  });
+
 });
 
 $(document).on("click", ".detail", function () {
