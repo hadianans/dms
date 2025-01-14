@@ -10,7 +10,7 @@
 </div>
 
 <div class="row pb-4">
-    <div class="col">
+    <div class="col-sm">
         <div class="card border-primary mb-3">
             <div class="card-header bg-primary text-white"><b>Total PO</b></div>
             <div class="card-body text-dark">
@@ -18,11 +18,11 @@
             </div>
         </div>
     </div>
-    <div class="col">
+    <div class="col-sm">
         <div class="card border-danger mb-3">
             <div class="card-header bg-danger text-white"><b>Customer</b></div>
             <div class="card-body text-dark">
-                <h4 class="card-title"><span class="icon-clock-o mr-3"></span>{{ \App\Models\Customer::count() }}</h4>
+                <h4 class="card-title"><span class="icon-people mr-3"></span>{{ \App\Models\Customer::count() }}</h4>
             </div>
         </div>
     </div>
@@ -39,7 +39,7 @@
                 <th>Total</th>
                 <th>Price</th>
                 <th>Done</th>
-                <ths tyle="width: 25%;">Note</th>
+                <th style="width: 25%;">Note</th>
             </thead>
             <tbody>
                 

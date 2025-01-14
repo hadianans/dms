@@ -10,35 +10,35 @@
 </div>
 
 <div class="row pb-4">
-    <div class="col">
+    <div class="col-md">
         <div class="card border-dark mb-3">
             <div class="card-header bg-dark text-white"><b>Total Produksi</b></div>
             <div class="card-body text-dark">
-                <h4 class="card-title amount"><span class="icon-gears mr-3"></span><span class="amount-dash">{{ \App\Models\Production::sum('amount') }}</span></h4>
+                <h4 class="card-title"><span class="icon-gears mr-3"></span><span class="amount-dash">{{ \App\Models\Production::sum('amount') }}</span></h4>
             </div>
         </div>
     </div>
-    <div class="col">
+    <div class="col-md">
         <div class="card border-info mb-3">
             <div class="card-header bg-info text-white"><b>Shift Pagi</b></div>
             <div class="card-body text-dark">
-                <h4 class="card-title amount"><span class="icon-clock-o mr-3"></span><span class="amount-dash">{{ \App\Models\Production::where('shift', '0')->whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->sum('amount') }}</span></h4>
+                <h4 class="card-title"><span class="icon-clock-o mr-3"></span><span class="amount-dash">{{ \App\Models\Production::where('shift', '0')->whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->sum('amount') }}</span></h4>
             </div>
         </div>
     </div>
-    <div class="col">
+    <div class="col-md">
         <div class="card border-warning mb-3">
             <div class="card-header bg-warning text-white"><b>Shift Siang</b></div>
             <div class="card-body">
-                <h4 class="card-title amount"><span class="icon-wb_sunny mr-3"></span><span class="amount-dash">{{ \App\Models\Production::where('shift', '1')->whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->sum('amount') }}</span></h4>
+                <h4 class="card-title"><span class="icon-wb_sunny mr-3"></span><span class="amount-dash">{{ \App\Models\Production::where('shift', '1')->whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->sum('amount') }}</span></h4>
             </div>
         </div>
     </div>
-    <div class="col">
+    <div class="col-md">
         <div class="card border-primary mb-3">
             <div class="card-header bg-primary text-white"><b>Shift Malam</b></div>
             <div class="card-body">
-                <h4 class="card-title amount"><span class="icon-moon-o mr-3"></span><span class="amount-dash">{{ \App\Models\Production::where('shift', '2')->whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->sum('amount') }}</span></h4>
+                <h4 class="card-title"><span class="icon-moon-o mr-3"></span><span class="amount-dash">{{ \App\Models\Production::where('shift', '2')->whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->sum('amount') }}</span></h4>
             </div>
         </div>
     </div>

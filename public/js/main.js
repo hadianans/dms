@@ -123,3 +123,26 @@ function amountDashFormat(){
       element[i].innerHTML = amount;
   }
 }
+
+function amountResposiveFormat(){
+
+  let amount;
+  const element = $(".amount-responsive");
+  
+  for(i=0; i<element.length; i++){
+  
+      let a = element[i].innerHTML / 12;
+      
+      if(Number.isInteger(a) == false){
+          let b = a - Math.floor(a);
+          let c = Math.round(b * 12);
+          // amount = Math.floor(a) + " dz " + c + " ps";
+          amount = element[i].innerHTML + " ps";
+      }else{
+          amount = a + " dz";
+      }
+  
+      element[i].innerHTML = amount;
+  }
+
+}

@@ -10,7 +10,7 @@
 </div>
 
 <div class="row pb-4">
-    <div class="col">
+    <div class="col-md">
         <div class="card border-danger mb-3">
             <div class="card-header bg-danger text-white"><b>PO Bulanan</b></div>
             <div class="card-body text-dark">
@@ -18,7 +18,7 @@
             </div>
         </div>
     </div>
-    <div class="col">
+    <div class="col-md">
         <div class="card border-info mb-3">
             <div class="card-header bg-info text-white"><b>Progress</b></div>
             <div class="card-body text-dark">
@@ -26,7 +26,7 @@
             </div>
         </div>
     </div>
-    <div class="col">
+    <div class="col-md">
         <div class="card border-success mb-3">
             <div class="card-header bg-success text-white"><b>Done</b></div>
             <div class="card-body text-dark">

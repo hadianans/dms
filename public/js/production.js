@@ -34,7 +34,15 @@ $(document).ready(function() {
 
     table.on('draw', function() {
         amountFormat();
-      });
+    });
+
+    table.on('responsive-display', function(e, datatable, row, showHide) {
+        if(showHide == true){
+          var $production = row.child().find('li[data-dt-column="5"] .dtr-data');
+          $production.addClass('amount-responsive');
+          amountResposiveFormat();
+        }
+    });
 
   });
 

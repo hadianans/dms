@@ -20,11 +20,25 @@ $(document).ready(function() {
       //   amountFormat();
       // }
   });
-  
+
   table.on('draw', function() {
     amountFormat();
   });
 
+  table.on('responsive-display', function(e, datatable, row, showHide) {
+
+    if(showHide == true){
+      
+      var $amount = row.child().find('li[data-dt-column="3"] .dtr-data');
+      var $production = row.child().find('li[data-dt-column="5"] .dtr-data');
+      
+      $amount.addClass('amount-responsive');
+      $production.addClass('amount-responsive');
+  
+      amountResposiveFormat();
+    }
+  });
+  
 });
 
 $(document).on("click", ".detail", function () {

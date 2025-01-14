@@ -50,15 +50,15 @@
         <div class="counter d-flex justify-content-center">
           <!-- <div class="row justify-content-center"> -->
             <div class="col">
-              <strong class="number">142</strong>
+              <strong class="number">{{ \App\Models\Customer::count() }}</strong>
               <span class="number-label">Customer</span>
             </div>
             <div class="col">
-              <strong class="number">12</strong>
+              <strong class="number">{{ \App\Models\Sock::count() }}</strong>
               <span class="number-label">Sock</span>
             </div>
             <div class="col">
-              <strong class="number">19</strong>
+              <strong class="number">{{ \App\Models\Color::count() }}</strong>
               <span class="number-label">Color</span>
             </div>
           <!-- </div> -->
